@@ -19,11 +19,33 @@ export class TinyMCEComponent implements ComponentFramework.StandardControl<IInp
 		require('tinymce/themes/silver');
 		require('tinymce/icons/default');
 
+		require('tinymce/models/dom');
+
+		
+
 		// Any plugins you want to use has to be imported
-		require('tinymce/plugins/paste');
+		//require('tinymce/plugins/paste');
 		require('tinymce/plugins/link');
+		require('tinymce/plugins/lists');
 		require('tinymce/plugins/autoresize');
 		require('tinymce/plugins/code');
+
+
+		require('tinymce/plugins/advlist');
+		require('tinymce/plugins/autolink');
+		require('tinymce/plugins/image');
+		require('tinymce/plugins/charmap');
+		require('tinymce/plugins/preview');
+		require('tinymce/plugins/anchor');
+		
+		require('tinymce/plugins/searchreplace');
+		require('tinymce/plugins/visualblocks');
+		require('tinymce/plugins/fullscreen');
+		require('tinymce/plugins/insertdatetime');
+		require('tinymce/plugins/media');
+		require('tinymce/plugins/table');
+		require('tinymce/plugins/help');
+		require('tinymce/plugins/wordcount');
 	}
 
 	/**
@@ -52,21 +74,23 @@ export class TinyMCEComponent implements ComponentFramework.StandardControl<IInp
 	}
 
 	public loadWidget() {
-				
-		this._tinymce.init({
-			selector: '#text_editor'+this._domId,
-			width: "100%",
-			height: "100%",
-			plugins: ['paste', 'link', 'autoresize', 'code'],
-			setup:(ed: any) => {
-				ed.on('change', (e: any) => {
-						this._textValue = ed.getContent();
-						this._textEditor.innerHTML= this._textValue;
-						this._notifyOutputChanged();
-				});
-		}
-		});
-	}
+			
+			this._tinymce.init({
+				selector: '#text_editor'+this._domId,
+				height: 500,
+				plugins: [
+				  'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+				  'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+				  'insertdatetime', 'media', 'table', 'help', 'wordcount'
+				],
+				toolbar: 'undo redo | blocks | ' +
+				'bold italic backcolor | alignleft aligncenter ' +
+				'alignright alignjustify | bullist numlist outdent indent | ' +
+				'removeformat | help',
+				content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+			  });
+
+}
 
 	ID = function () {
 		// Math.random should be unique because of its seeding algorithm.
@@ -90,6 +114,7 @@ export class TinyMCEComponent implements ComponentFramework.StandardControl<IInp
 	 * It is called by the framework prior to a control receiving new data. 
 	 * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as “bound” or “output”
 	 */
+
 	public getOutputs(): IOutputs
 	{
 		return {
