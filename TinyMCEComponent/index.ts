@@ -1,5 +1,5 @@
 import {IInputs, IOutputs} from "./generated/ManifestTypes";
-
+ 
 export class TinyMCEComponent implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 // Reference to ComponentFramework Context object
 	private _context: ComponentFramework.Context<IInputs>;
